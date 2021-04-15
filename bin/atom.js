@@ -2,21 +2,15 @@
 const Fs = require("fs");
 const src = "./src";
 const args = process.argv.slice(2);
-const path = args[0].split("/");
-let name = "";
-let folderName = "";
-if (path.length > 1) {
-  name = path[1];
-  folderName = path[0];
-} else {
-  name = args[0];
-  folderName = args[0];
-}
+const atomictype = args[0];
+const path = args[1].split("/");
+const name = path.length > 1 ? path[1] : path[0];
+const folderName = path[0];
 const fileName = name.charAt(0).toUpperCase() + name.slice(1);
 
 const createAtom = () => {
   Fs.writeFile(
-    `${src}/atoms/${folderName}/${fileName}.js`,
+    `${src}/${atomictype}/${folderName}/${fileName}.js`,
     `import React from "react";
 import { View, Text } from "react-native";
 
@@ -36,7 +30,7 @@ export { ${fileName} };`,
   );
 
   Fs.appendFile(
-    `${src}/atoms/${folderName}/index.js`,
+    `${src}/${atomictype}/${folderName}/index.js`,
     `export * from './${fileName}'\n`,
     function (err) {
       if (err) throw err;
@@ -45,38 +39,40 @@ export { ${fileName} };`,
   );
 };
 
-// src folder and atoms folder
+// src folder and atomictype folder
 if (!Fs.existsSync(src)) {
   Fs.mkdirSync(src);
   console.log("Src folder: created");
 }
-if (!Fs.existsSync(`${src}/atoms`)) {
-  Fs.mkdirSync(`${src}/atoms`);
+if (!Fs.existsSync(`${src}/${atomictype}`)) {
+  Fs.mkdirSync(`${src}/${atomictype}`);
   Fs.writeFile(
-    `${src}/atoms/index.js`,
-    "//exports all atoms\n",
+    `${src}/${atomictype}/index.js`,
+    "//exports everything\n",
     function (err) {
       if (err) throw err;
-      console.log("Atoms folder: created");
+      console.log(`${atomictype} folder: created`);
     }
   );
 }
 
-if (!Fs.existsSync(`${src}/atoms/${folderName}`)) {
-  Fs.mkdirSync(`${src}/atoms/${folderName}`);
+if (!Fs.existsSync(`${src}/${atomictype}/${folderName}`)) {
+  Fs.mkdirSync(`${src}/${atomictype}/${folderName}`);
   createAtom();
 
   //it adds an export statment in index.js file from atoms folder
   Fs.appendFile(
-    `${src}/atoms/index.js`,
+    `${src}/${atomictype}/index.js`,
     `export * from './${folderName}'\n`,
     function (err) {
       if (err) throw err;
       console.log("Updated index.js file!");
     }
   );
-} else if (!Fs.existsSync(`${src}/atoms/${folderName}/${fileName}.js`)) {
+} else if (
+  !Fs.existsSync(`${src}/${atomictype}/${folderName}/${fileName}.js`)
+) {
   createAtom();
 } else {
-  throw new Error("Átomo já existe");
+  throw new Error(`${atomictype} já existe`);
 }
