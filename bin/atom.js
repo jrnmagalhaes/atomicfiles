@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 const Fs = require("fs");
-const { projecttype } = require(process.env.PWD + "/cafe.config.json");
+const { projectType } = require(process.env.PWD + "/cafe.config.json");
 const src = "./src";
 const args = process.argv.slice(2);
 const atomictype = args[0];
@@ -12,7 +12,7 @@ const fileName = name.charAt(0).toUpperCase() + name.slice(1);
 const createAtom = () => {
   Fs.writeFile(
     `${src}/${atomictype}/${folderName}/${fileName}.js`,
-    projecttype == "react-native"
+    projectType == "react-native"
       ? `import React from "react";
 import { View, Text } from "react-native";
 
@@ -87,5 +87,5 @@ if (!Fs.existsSync(`${src}/${atomictype}/${folderName}`)) {
 ) {
   createAtom();
 } else {
-  throw new Error(`${atomictype} já existe`);
+  throw new Error(`Atomic file alredy exists`);
 }
