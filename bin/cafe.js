@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 const Fs = require("fs");
-const { projectType } = require(process.env.PWD + "/cafe.config.json");
+const { projectType } = require(process.cwd() + "/cafe.config.json");
 const src = "./src";
 const args = process.argv.slice(2);
 const atomictype = args[0];
