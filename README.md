@@ -34,6 +34,17 @@ It creates the file itself, the folders to keep everything organized and updates
 
 ### Installation
 
+1. Install the toll using npm
+<!-- TODO: add the instalation command -->
+
+2. Create a cafe.config.json file in the folder you are planning to use this tool.
+
+```js
+{
+  "projectType": "react-native", //react-native or react
+}
+```
+
 ## Usage
 
 To create atoms:
@@ -57,7 +68,7 @@ cafe anything anythingname
 You can even specify the folder name. The following command will create a folder called myCustomFolder inside atom's folder with AtomName.js inside:
 
 ```bash
-cafe atom myCustomFolder/atomname
+cafe atom myCustomFolder/atomName
 ```
 
 ## Disclaimers
