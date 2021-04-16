@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 const Fs = require("fs");
+const { projecttype } = require(process.env.PWD + "/cafe.config.json");
 const src = "./src";
 const args = process.argv.slice(2);
-const projecttype = args[0];
-const atomictype = args[1];
-const path = args[2].split("/");
+const atomictype = args[0];
+const path = args[1].split("/");
 const name = path.length > 1 ? path[1] : path[0];
 const folderName = path[0];
 const fileName = name.charAt(0).toUpperCase() + name.slice(1);
