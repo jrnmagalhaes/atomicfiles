@@ -35,7 +35,10 @@ It creates the file itself, the folders to keep everything organized and updates
 ### Installation
 
 1. Install the toll using npm
-<!-- TODO: add the instalation command -->
+
+```bash
+npm install -g git+https://github.com/jrnmagalhaes/atomicfiles.git
+```
 
 2. Create a cafe.config.json file in the folder you are planning to use this tool.
 
