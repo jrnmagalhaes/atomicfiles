@@ -53,13 +53,19 @@ npm install -g git+https://github.com/jrnmagalhaes/atomicfiles.git
 To create atoms:
 
 ```bash
-cafe atom atomname
+cafe atoms atomname
 ```
 
 To create molecules:
 
 ```bash
-cafe molecule moleculename
+cafe molecules moleculename
+```
+
+To create organisms:
+
+```bash
+cafe organisms moleculename
 ```
 
 To create anything:
