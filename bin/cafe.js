@@ -8,34 +8,13 @@ const path = args[1].split("/");
 const name = path.length > 1 ? path[1] : path[0];
 const folderName = path[0];
 const fileName = name.charAt(0).toUpperCase() + name.slice(1);
+const Templates = require("./templates.js");
 
 const createAtom = () => {
+  const templates = new Templates(projectType, fileName);
   Fs.writeFile(
     `${src}/${atomictype}/${folderName}/${fileName}.js`,
-    projectType == "react-native"
-      ? `import React from "react";
-import { View, Text } from "react-native";
-
-const ${fileName} = () => {
-  return (
-    <View>
-      <Text>${fileName}</Text>
-    </View>
-  );
-};
-
-export { ${fileName} };`
-      : `import React from "react";
-
-const ${fileName} = () => {
-  return (
-    <div>
-      ${fileName}
-    </div>
-  );
-};
-
-export { ${fileName} };`,
+    templates.render(),
     function (err) {
       if (err) throw err;
       console.log("Atom created");

@@ -29,6 +29,6 @@
 
 ### Prerequisites
 
-This project was made to work with node based projects
+You need to create a cafe.config.js file in the folder that you will use this tool
 
 ### Installation
