@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 const Fs = require("fs");
-const { projectType } = require(process.cwd() + "/cafe.config.json");
-const src = "./src";
+const { projectType, src_folder = "./src" } = require(process.cwd() +
+  "/cafe.config.json");
 const args = process.argv.slice(2);
 const atomictype = args[0];
 const path = args[1].split("/");
@@ -13,7 +13,7 @@ const Templates = require("./templates.js");
 const createAtom = () => {
   const templates = new Templates(projectType, fileName);
   Fs.writeFile(
-    `${src}/${atomictype}/${folderName}/${fileName}.js`,
+    `${src_folder}/${atomictype}/${folderName}/${fileName}.js`,
     templates.render(),
     function (err) {
       if (err) throw err;
@@ -22,7 +22,7 @@ const createAtom = () => {
   );
 
   Fs.appendFile(
-    `${src}/${atomictype}/${folderName}/index.js`,
+    `${src_folder}/${atomictype}/${folderName}/index.js`,
     `export * from './${fileName}'\n`,
     function (err) {
       if (err) throw err;
@@ -32,14 +32,14 @@ const createAtom = () => {
 };
 
 // src folder and atomictype folder
-if (!Fs.existsSync(src)) {
-  Fs.mkdirSync(src);
+if (!Fs.existsSync(src_folder)) {
+  Fs.mkdirSync(src_folder);
   console.log("Src folder: created");
 }
-if (!Fs.existsSync(`${src}/${atomictype}`)) {
-  Fs.mkdirSync(`${src}/${atomictype}`);
+if (!Fs.existsSync(`${src_folder}/${atomictype}`)) {
+  Fs.mkdirSync(`${src_folder}/${atomictype}`);
   Fs.writeFile(
-    `${src}/${atomictype}/index.js`,
+    `${src_folder}/${atomictype}/index.js`,
     "//exports everything\n",
     function (err) {
       if (err) throw err;
@@ -48,13 +48,13 @@ if (!Fs.existsSync(`${src}/${atomictype}`)) {
   );
 }
 
-if (!Fs.existsSync(`${src}/${atomictype}/${folderName}`)) {
-  Fs.mkdirSync(`${src}/${atomictype}/${folderName}`);
+if (!Fs.existsSync(`${src_folder}/${atomictype}/${folderName}`)) {
+  Fs.mkdirSync(`${src_folder}/${atomictype}/${folderName}`);
   createAtom();
 
   //it adds an export statment in index.js file from atoms folder
   Fs.appendFile(
-    `${src}/${atomictype}/index.js`,
+    `${src_folder}/${atomictype}/index.js`,
     `export * from './${folderName}'\n`,
     function (err) {
       if (err) throw err;
@@ -62,7 +62,7 @@ if (!Fs.existsSync(`${src}/${atomictype}/${folderName}`)) {
     }
   );
 } else if (
-  !Fs.existsSync(`${src}/${atomictype}/${folderName}/${fileName}.js`)
+  !Fs.existsSync(`${src_folder}/${atomictype}/${folderName}/${fileName}.js`)
 ) {
   createAtom();
 } else {
