@@ -45,7 +45,7 @@ npm install -g git+https://github.com/jrnmagalhaes/atomicfiles.git
 ```js
 {
   "projectType": "react-native", //react-native or react
-  "scr_folder": "folderName"
+  "src_folder": "folderName"
 }
 ```
 
