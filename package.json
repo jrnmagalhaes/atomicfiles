@@ -1,6 +1,6 @@
 {
   "name": "@jrnmagalhaes/cafe",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Command line tool to create files following the atomic design pattern",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,8 @@
     "create"
   ],
   "author": "Ricardo Nogueira",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
 }
