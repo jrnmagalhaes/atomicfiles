@@ -51,34 +51,32 @@ npm install -g git+https://github.com/jrnmagalhaes/atomicfiles.git
 
 ## Usage
 
-To create atoms:
+### To ask for help
 
 ```bash
-cafe atoms atomname
+cafe --help
 ```
 
-To create molecules:
+### To list all atomic types
 
 ```bash
-cafe molecules moleculename
+cafe -t
 ```
 
-To create organisms:
+### To create atomic files
+
+Specify an attribute called --at, using an atomic type as a value, then input a name
 
 ```bash
-cafe organisms moleculename
+cafe --at=a atomName
 ```
 
-To create anything:
+The command above will create an atom (--at=a) called atomName
+
+You can even specify the folder name. The following command will create a folder called custom inside atom's folder with AtomName.js inside:
 
 ```bash
-cafe anything anythingname
-```
-
-You can even specify the folder name. The following command will create a folder called myCustomFolder inside atom's folder with AtomName.js inside:
-
-```bash
-cafe atom myCustomFolder/atomName
+cafe --at=a custom/atomName
 ```
 
 ## Contributing
