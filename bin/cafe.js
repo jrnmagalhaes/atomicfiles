@@ -31,6 +31,12 @@ const options = yargs
     demandOption: false,
     type: "boolean",
   })
+  .option("d", {
+    alias: "create_storybook",
+    describe: "define if you want to include a storybook file",
+    demandOption: false,
+    type: "boolean"
+  })
   .option("setup", {
     describe: "setup initial folder structure",
   })
@@ -45,7 +51,8 @@ if (argv.type || argv.at) {
       argv.type ? argv.type : argv.at,
       projectType,
       src_folder,
-      argv.s
+      argv.s,
+      argv.d
     );
     atomicFile.createAtom();
   } else {

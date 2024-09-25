@@ -1,8 +1,13 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
+
 class Templates {
-  constructor(type, name, sass) {
+  constructor(type, name, sass, atomType) {
     this.type = type;
     this.name = name;
     this.sass = sass;
+    this.atomType = atomType;
     this.availableTemplates = {
       "react-native": {
         imports: {
@@ -41,6 +46,19 @@ class Templates {
 
   renderSass() {
     return this.availableTemplates.sass;
+  }
+
+  renderStorybook() {
+    return new Promise((resolve, reject) => {
+      fs.readFile(path.join(__dirname, '/templates/storybookFile'), 'utf8', (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        if (data) {
+          resolve(data.replace(/name/g, this.name).replace(/AtomType/g, this.atomType));
+        }
+      });
+    })
   }
 }
 
