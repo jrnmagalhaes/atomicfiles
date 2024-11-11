@@ -1,0 +1,10 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
+import { name } from "./name";
+
+describe("name Component", () => {
+    it("should render name", () => {
+        render(<name />);
+
+    });
+});
