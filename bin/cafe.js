@@ -6,6 +6,7 @@ const { hideBin } = require("yargs/helpers");
 
 const AtomicFile = require("./atomicFile");
 const AtomicFileTypes = require("./atomicFileTypes");
+const { describe } = require("node:test");
 
 const { projectType, src_folder = "./src" } = require(process.cwd() +
   "/cafe.config.json");
@@ -13,7 +14,7 @@ const { projectType, src_folder = "./src" } = require(process.cwd() +
 const usage = "\nUsage: cafe <arguments> <atom_path>";
 const options = yargs
   .usage(usage)
-  .option("t", {
+  .option("types", {
     alias: "atom_types",
     describe: "List all supported types.",
     type: "boolean",
@@ -37,6 +38,12 @@ const options = yargs
     demandOption: false,
     type: "boolean"
   })
+  .option("t", {
+    alias: "create_testfiles",
+    describe: "define if you want to include a test file",
+    demandOption: false,
+    type: "boolean"
+  })
   .option("setup", {
     describe: "setup initial folder structure",
   })
@@ -52,7 +59,8 @@ if (argv.type || argv.at) {
       projectType,
       src_folder,
       argv.s,
-      argv.d
+      argv.d,
+      argv.t
     );
     atomicFile.createAtom();
   } else {
@@ -79,7 +87,7 @@ if (argv.setup) {
 }
 
 // list all file types
-if (argv.t) {
+if (argv.types) {
   showAtomTypes();
   return;
 }

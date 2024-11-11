@@ -3,7 +3,7 @@ const Templates = require("./templates");
 const Fs = require("fs");
 
 class AtomicFile {
-  constructor(path, type, projectType, src_folder, renderStyles = false, includeStorybook = false) {
+  constructor(path, type, projectType, src_folder, renderStyles = false, includeStorybook = false, includeJsTest = false) {
     const splittedPath = path.split("/");
     const fileName =
       splittedPath.length > 1 ? splittedPath[1] : splittedPath[0];
@@ -14,6 +14,7 @@ class AtomicFile {
     this.src_folder = src_folder;
     this.renderStyles = renderStyles;
     this.includeStorybook = includeStorybook;
+    this.includeJsTest = includeJsTest
   }
 
   createFolder() {
@@ -92,6 +93,18 @@ class AtomicFile {
       });
     }
 
+    if (this.includeJsTest) {
+      templates.renderJsTestFile().then(template=>{
+        Fs.writeFile(
+          `${this.src_folder}/${this.type}/${this.folderName}/${this.name}.test.js`,
+          template,
+          function (err) {
+            if (err) throw err;
+          }
+        );
+      })
+    } 
+      
     Fs.appendFile(
       `${this.src_folder}/${this.type}/${this.folderName}/index.js`,
       `export * from './${this.name}';\n`,

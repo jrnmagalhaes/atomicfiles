@@ -60,6 +60,19 @@ class Templates {
       });
     })
   }
+
+  renderJsTestFile(){
+    return new Promise((resolve, reject) => {
+      fs.readFile(path.join(__dirname, '/templates/jsTestFile'), 'utf8', (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        if (data) {
+          resolve(data.replace(/name/g, this.name));
+        }
+      });
+    })
+  }
 }
 
 module.exports = Templates;
